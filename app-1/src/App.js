@@ -3,16 +3,26 @@ import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      item: '',
+    }
+  }
+
+  updateWord(str) {
+    this.setState({ 
+      item: str.target.value,
+    })
+    return this.state.item;
+  }
+
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div id="App">
+        <input onChange={(event) => console.log(this.updateWord(event))} type="text" placeholder="whoa" />
+
+        {this.state.item}
       </div>
     );
   }
