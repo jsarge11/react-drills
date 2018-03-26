@@ -1,0 +1,45 @@
+import React, { Component } from 'react';
+import './App.css';
+
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      arr: ["this is on the DOM", "this is also on the dom", "now you got this bad boy on the DOM"]
+    }
+  }
+
+  updateList(e) {
+    let times = this.state.arr.length;
+    let newArr = this.state.arr.slice();
+    for (let i = 0; i < times; i++) {
+      if (e === newArr[i]) {
+        newArr.push('found');
+      }
+     this.setState({
+       arr: newArr,
+      })
+      break;
+    }
+
+  }
+  render() {
+
+    const newArr = this.state.arr.map((e,i)=>{
+      return(
+        <div key={i}>
+          <li>{ e }</li>
+        </div>
+      )
+    })
+
+    return (
+      <div className="App">
+      <input onChange={(e)=>this.updateList(e.target.value)} type="text" placeholder="filter"/>
+       {newArr}
+      </div>
+    );
+  }
+}
+
+export default App;

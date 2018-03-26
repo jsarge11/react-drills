@@ -1,20 +1,47 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Todo from './Todo'
+import NewTask from './NewTask'
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      task: '',
+      taskList: [],
+    }
+  }
+
+  updateItem(e) {
+    this.setState({ task: e})
+  }
+  updateList() {
+    let item = this.state.task;
+    let newArr = this.state.taskList.slice()
+    newArr.push(item);
+    this.setState({ 
+      taskList: newArr,
+      task: "",
+    })
+  }
   render() {
+
+    let list = this.state.taskList.map((e,i) => {
+      return (
+        <Todo key={i} task={e} />
+      )
+    })
+    //^^
+    //why does this return a list in order and all fancy
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <input onChange={(e)=>this.updateItem(e.target.value)} type="text" placeholder="add" value={this.state.task}/>
+        <button onClick={(e)=>this.updateList(e)} value={this.state.taskList}>Add to list</button>
+  
+       {list}
+          
       </div>
-    );
+      );
   }
 }
 
